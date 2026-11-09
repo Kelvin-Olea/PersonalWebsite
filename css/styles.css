@@ -1,0 +1,81 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #0d0b09;
+  --surface: #1a2029;
+  --text: #e8ebf0;
+  --muted: #9aa5b6;
+  --border: #2b3340;
+  --accent: #37e614;
+  --accent-fade:  rgba(17, 31, 10, 0.1);
+  --accent-text: #11151c;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 8px;
+  --max-width: 60rem;
+  --space: 1rem;
+}
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 20% 30% at 10% 0%,  var(--accent-fade) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 30% at 80% 90%,  var(--accent-fade)  0%, transparent 100%);
+}
+
+/* ---------- Header ---------- */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.aperture {
+  width: 70px;
+  height: 70px;
+  color: var(--accent);
+  margin-bottom: 28px;
+  align-self: center;
+  opacity: 0.85;
+  animation: spinUp 1.5s cubic-bezier(0.15, 0.6, 0.3, 0.978), slowSpin 24s linear 1.5s infinite, fadeIn 0.8s ease both;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space);
+}
+
+.nav-button {
+  padding: 0.6rem 2rem;
+  min-width: 4rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes spinUp {
+  to { transform: rotate(720deg); }
+}
+
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
