@@ -5,14 +5,15 @@
   --text: #e8ebf0;
   --muted: #9aa5b6;
   --border: #2b3340;
-  --accent: #37e614;
-  --accent-fade:  rgba(17, 31, 10, 0.1);
+  --accent: #b75dce;
+  --accent-fade:  #b75dce15;
   --accent-text: #11151c;
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --radius: 8px;
+  --font-title: "Varela Round", sans-serif;
+  --radius: 8px;  
   --max-width: 60rem;
-  --space: 1rem;
+  --space: 4rem;
 }
 
 /* ---------- Base ---------- */
@@ -24,8 +25,8 @@ body {
   color: var(--text);
   background: var(--bg);
   background-image:
-    radial-gradient(ellipse 20% 30% at 10% 0%,  var(--accent-fade) 0%, transparent 100%),
-    radial-gradient(ellipse 20% 30% at 80% 90%,  var(--accent-fade)  0%, transparent 100%);
+    radial-gradient(ellipse 20% 30% at 5% 0%,  var(--accent-fade) 0%, transparent 100%),
+    radial-gradient(ellipse 40% 50% at 90% 100%,  var(--accent-fade)  0%, transparent 100%);
 }
 
 /* ---------- Header ---------- */
@@ -47,22 +48,87 @@ header {
   animation: spinUp 1.5s cubic-bezier(0.15, 0.6, 0.3, 0.978), slowSpin 24s linear 1.5s infinite, fadeIn 0.8s ease both;
 }
 
+/* ---------- Nav ---------- */
 nav {
+  position: relative;
   display: flex;
   justify-content: center;
   gap: var(--space);
+  width: min(100%, 44rem);
+  font-family: var(--font-title);
+}
+
+/* Line under nav */
+nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.4rem;
+  height: 1px;
+  background: var(--accent)
 }
 
 .nav-button {
-  padding: 0.6rem 2rem;
-  min-width: 4rem;
+  position: relative;
+  z-index: 0;
+  padding: 0.6rem 1rem;  
+  min-width: 10rem;
   color: var(--text);
   text-decoration: none;
+  font-family: var(--font-title);  
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2rem;
+
 }
 
-.nav-button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.nav-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0.4rem;               /* matches the line's "bottom" value */
+  z-index: -1;                  /* behind the text */
+  background: var(--accent);
+  transform: scaleY(0);         /* collapsed down to the line */
+  transform-origin: bottom;     /* grows up from the line */
+  transition: transform 0.25s ease;
+}
+
+/* Dark copy of the label, sitting exactly on top of the real text */
+.nav-button::after {
+  content: attr(data-text);
+  content: attr(data-text) / "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: inherit;
+  color: var(--accent-text);
+  clip-path: inset(calc(100% - 0.4rem) 0 0.4rem 0);   /* hidden: flat strip on the line */
+  transition: clip-path 0.25s ease;
+}
+
+.nav-button:hover::after,
+.nav-button:focus-visible::after {
+  clip-path: inset(0 0 0.4rem 0);   /* same area as the box */
+}
+
+.nav-button:hover::before,
+.nav-button:focus-visible::before {
+  transform: scaleY(1);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 40%;
 }
 
 /* ---------- Keyframes ---------- */
