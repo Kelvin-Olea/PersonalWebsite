@@ -13,7 +13,7 @@
   --font-title: "Varela Round", sans-serif;
   --radius: 8px;  
   --max-width: 60rem;
-  --space: 1rem;
+  --space: 4rem;
 }
 
 /* ---------- Base ---------- */
@@ -49,26 +49,60 @@ header {
 }
 
 nav {
+  position: relative;
   display: flex;
   justify-content: center;
   gap: var(--space);
+  width: min(100%, 44rem);
+  font-family: var(--font-title);
+}
+
+/* Faded line under the nav; raise or lower it with "bottom" */
+nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.4rem;
+  height: 1px;
+  background: var(--accent)
 }
 
 .nav-button {
-  padding: 0.6rem 2rem;
-  min-width: 8rem;
+  position: relative;
+  padding: 0.6rem 1rem;
+  min-width: 10rem;
   color: var(--text);
   text-decoration: none;
   font-family: var(--font-title);  
   font-weight: 400;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 2.5rem;
 
 }
 
-.nav-button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.nav-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0.4rem;               /* matches the line's "bottom" value */
+  z-index: -1;                  /* behind the text */
+  background: var(--accent);
+  transform: scaleY(0);         /* collapsed down to the line */
+  transform-origin: bottom;     /* grows up from the line */
+  transition: transform 0.25s ease;
+}
+
+.nav-button:hover::before,
+.nav-button:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.nav-button:hover{
+  color: var(--accent-text);
+  transition: color 0.25s ease; 
 }
 
 /* ---------- Keyframes ---------- */
