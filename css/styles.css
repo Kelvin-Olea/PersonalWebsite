@@ -123,12 +123,12 @@ nav::after {
 }
 
 /* ---------- Projects ---------- */
-#projects {
+.view {
   width: min(100% - 2rem, var(--max-width));
   margin: 6rem auto 0;
 }
 
-#projects h2 {
+.view h2 {
   margin: 0 0 2rem;
   font-family: var(--font-title);
   font-size: 2rem;
@@ -220,4 +220,45 @@ footer {
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* ---------- Section wipe Animation ---------- */
+main {
+  min-height: 60vh;   /* keeps both views the same height so the two edges line up */
+  view-transition-name: main;
+}
+
+::view-transition-old(main),
+::view-transition-new(main) {
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(main) {
+  animation-name: wipeOut;
+}
+
+::view-transition-new(main) {
+  animation-name: wipeIn;
+}
+
+@keyframes wipeOut {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(100% 0 0 0); }
+}
+
+@keyframes wipeIn {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(main) {
+    display: none;
+  }
+  ::view-transition-new(main) {
+    animation: none;
+  }
 }
