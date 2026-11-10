@@ -35,6 +35,8 @@
   --radius: 8px;
   --max-width: 60rem;
   --space: 4rem;
+
+  --nav-width: 44rem;
 }
 
 
@@ -81,7 +83,7 @@ nav {
   display: flex;
   justify-content: center;
   gap: var(--space);
-  width: min(100%, 44rem);
+  width: min(100%, var(--nav-width));
   font-family: var(--font-title);
 }
 
@@ -244,7 +246,8 @@ footer {
 /* The area that swaps between views; its own layer so only it animates */
 main {
   position: relative;
-  min-height: 60vh;   /* keeps both views the same height so the wipe edges line up */
+  padding-block: 24px;
+  min-height: 60vh;
   view-transition-name: main;
 }
 
@@ -269,7 +272,10 @@ main {
 /* Line: an invisible element that only exists so the browser makes a layer for it */
 .wipe-line {
   position: absolute;
-  inset: 0;
+  top: calc(-0.4rem - 1px);  
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1;
   pointer-events: none;
   view-transition-name: wipe-line;
@@ -320,9 +326,9 @@ main {
 /* Transition line (1px band): draws out, travels down, shrinks at the bottom */
 @keyframes lineDraw {
   0% {
-    clip-path: inset(0 50% calc(100% - 1px) 50%);
+    clip-path: inset(0 max(0px, calc((100% - var(--nav-width)) / 2)) calc(100% - 1px) max(0px, calc((100% - var(--nav-width)) / 2)));
     animation-timing-function: ease-out;
-  }
+  }  
   30% {
     clip-path: inset(0 0 calc(100% - 1px) 0);
     animation-timing-function: ease;
