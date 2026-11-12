@@ -2,16 +2,17 @@
    Portfolio styles
 
    Contents
-   1. Design tokens
-   2. Base
-   3. Header
-   4. Nav
-   5. Views (page sections)
-   6. Projects
-   7. Footer
-   8. Section transition
-   9. Keyframes
-   10. Reduced motion
+   1.  Design tokens
+   2.  Base
+   3.  Header
+   4.  Nav
+   5.  Views (page sections)
+   6.  Projects
+   7.  About
+   8.  Footer
+   9.  Section transition
+   10. Keyframes
+   11. Reduced motion
    ========================================================================== */
 
 
@@ -35,7 +36,6 @@
   --radius: 8px;
   --max-width: 60rem;
   --space: 4rem;
-
   --nav-width: 44rem;
 }
 
@@ -84,7 +84,6 @@ nav {
   justify-content: center;
   gap: var(--space);
   width: min(100%, var(--nav-width));
-  font-family: var(--font-title);
 }
 
 /* Line under the nav; "bottom" lifts it off the bottom edge */
@@ -107,7 +106,6 @@ nav::after {
   text-decoration: none;
   font-family: var(--font-title);
   font-size: 2rem;
-  font-style: normal;
   font-weight: 700;
 }
 
@@ -151,6 +149,19 @@ nav::after {
   clip-path: inset(0 0 0.4rem 0);   /* same area as the box */
 }
 
+/* Small screens: let the buttons shrink so the nav fits */
+@media (max-width: 700px) {
+  nav {
+    gap: 1rem;
+  }
+
+  .nav-button {
+    min-width: 0;
+    padding-inline: 0.5rem;
+    font-size: 1.4rem;
+  }
+}
+
 
 /* ---------- 5. Views (page sections) ---------- */
 .view {
@@ -159,9 +170,17 @@ nav::after {
 }
 
 .view h2 {
-  margin: 0 0 2rem;
   font-family: var(--font-title);
   font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.section-description {
+  position: relative;
+  top: -2rem;                   /* pulls the text up under the heading */
+  margin: 0 0 2rem;
+  font-family: var(--font-title);
   font-weight: 400;
   text-align: center;
 }
@@ -220,7 +239,7 @@ nav::after {
 .project .links {
   display: flex;
   gap: 1rem;
-  margin: auto 0 0;   /* pushes the links to the bottom of the card */
+  margin: auto 0 0;             /* pushes the links to the bottom of the card */
 }
 
 .project .links a {
@@ -232,16 +251,75 @@ nav::after {
 }
 
 
-/* ---------- 7. Footer ---------- */
+/* ---------- 7. About ---------- */
+#about .text-box {
+  color: var(--muted);
+}
+
+/* Text box on the left, skillset on the right */
+.about-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 2rem;
+  align-items: center;          /* columns share a vertical center */
+}
+
+.skillset {
+  max-width: none;              /* fills its column */
+}
+
+.skillset h3 {
+  margin: 0 0 1rem;
+}
+
+.skill {
+  margin-bottom: 1rem;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.skill-header .proficiency {
+  opacity: 0.7;
+}
+
+.skill-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.skill-fill {
+  width: calc(var(--level) / 10 * 100%);   /* --level (0-10) is set inline in the HTML */
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+/* Stack on narrow screens */
+@media (max-width: 700px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ---------- 8. Footer ---------- */
 footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 7.4rem;
 }
 
 
-/* ---------- 8. Section transition ---------- */
+/* ---------- 9. Section transition ---------- */
 
 /* The area that swaps between views; its own layer so only it animates */
 main {
@@ -255,7 +333,7 @@ main {
 ::view-transition-old(main),
 ::view-transition-new(main) {
   animation-duration: 0.5s;
-  animation-delay: 0.3s;          /* waits for the line to draw first */
+  animation-delay: 0.3s;        /* waits for the line to draw first */
   animation-timing-function: ease;
   animation-fill-mode: both;
   mix-blend-mode: normal;
@@ -272,7 +350,7 @@ main {
 /* Line: an invisible element that only exists so the browser makes a layer for it */
 .wipe-line {
   position: absolute;
-  top: calc(-0.4rem - 1px);  
+  top: calc(-0.4rem - 1px);
   right: 0;
   bottom: 0;
   left: 0;
@@ -295,7 +373,7 @@ main {
 }
 
 
-/* ---------- 9. Keyframes ---------- */
+/* ---------- 10. Keyframes ---------- */
 
 /* Logo */
 @keyframes spinUp {
@@ -328,7 +406,7 @@ main {
   0% {
     clip-path: inset(0 max(0px, calc((100% - var(--nav-width)) / 2)) calc(100% - 1px) max(0px, calc((100% - var(--nav-width)) / 2)));
     animation-timing-function: ease-out;
-  }  
+  }
   30% {
     clip-path: inset(0 0 calc(100% - 1px) 0);
     animation-timing-function: ease;
@@ -343,8 +421,13 @@ main {
 }
 
 
-/* ---------- 10. Reduced motion ---------- */
+/* ---------- 11. Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  /* Logo: keep the fade-in, drop the spinning */
+  .aperture {
+    animation: fadeIn 0.8s ease both;
+  }
+
   ::view-transition-old(main) {
     display: none;
   }
