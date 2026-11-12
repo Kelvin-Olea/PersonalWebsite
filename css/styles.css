@@ -9,10 +9,11 @@
    5.  Views (page sections)
    6.  Projects
    7.  About
-   8.  Footer
-   9.  Section transition
-   10. Keyframes
-   11. Reduced motion
+   8.  Contact
+   9.  Footer
+   10. Section transition
+   11. Keyframes
+   12. Reduced motion
    ========================================================================== */
 
 
@@ -25,7 +26,7 @@
   --muted: #9aa5b6;
   --border: #2b3340;
   --accent: #b75dce;
-  --accent-fade: #b75dce17;
+  --accent-fade: #b75dce15;
   --accent-text: #11151c;
 
   /* Type */
@@ -47,6 +48,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--text);
+  min-height: 97dvh;           /* spans the full height of the device screen */
   background: var(--bg);
   background-image:
     radial-gradient(ellipse 20% 30% at 0% 0%, var(--accent-fade) 0%, transparent 100%),
@@ -309,23 +311,62 @@ nav::after {
 }
 
 
-/* ---------- 8. Footer ---------- */
+/* ---------- 8. Contact ---------- */
+
+/* Row of icon links, centered */
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 1.5rem;
+}
+
+.contact-link {
+  --hover-color: #888;          /* fallback; overridden per icon below */
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  color: #666;                  /* resting color */
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+/* SVGs use currentColor, so changing "color" recolors the icon */
+.contact-link svg {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--hover-color);
+  transform: scale(1.12);
+}
+
+/* Per-icon hover colors */
+.contact-link.github   { --hover-color: #8957e5; }
+.contact-link.linkedin { --hover-color: #0a66c2; }
+.contact-link.email    { --hover-color: #ea4335; }
+
+
+/* ---------- 9. Footer ---------- */
 footer {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 7.4rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 
-/* ---------- 9. Section transition ---------- */
+/* ---------- 10. Section transition ---------- */
 
 /* The area that swaps between views; its own layer so only it animates */
 main {
   position: relative;
   padding-block: 24px;
-  min-height: 60vh;
   view-transition-name: main;
 }
 
@@ -372,45 +413,8 @@ main {
   animation: lineDraw 1s ease both;
 }
 
-.contact-links {
-  display: flex;
-  gap: 4rem;
-  margin-top: 1.5rem;
-  justify-content: center;
-}
 
-.contact-link {
-  --hover-color: #888;
-  display: inline-flex;
-  width: 56px;
-  height: 56px;
-  color: #666; /* resting color */
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.contact-link svg {
-  width: 100%;
-  height: 100%;
-}
-
-.contact-link:hover,
-.contact-link:focus-visible {
-  color: var(--hover-color);
-  transform: scale(1.12);
-}
-
-/* per-icon hover colors */
-.contact-link.github   { --hover-color: #8957e5; }
-.contact-link.linkedin { --hover-color: #0a66c2; }
-.contact-link.email    { --hover-color: #ea4335; }
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-link { transition: color 0.25s ease; }
-  .contact-link:hover,
-  .contact-link:focus-visible { transform: none; }
-}
-
-/* ---------- 10. Keyframes ---------- */
+/* ---------- 11. Keyframes ---------- */
 
 /* Logo */
 @keyframes spinUp {
@@ -458,13 +462,24 @@ main {
 }
 
 
-/* ---------- 11. Reduced motion ---------- */
+/* ---------- 12. Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   /* Logo: keep the fade-in, drop the spinning */
   .aperture {
     animation: fadeIn 0.8s ease both;
   }
 
+  /* Contact icons: keep the color change, drop the grow */
+  .contact-link {
+    transition: color 0.25s ease;
+  }
+
+  .contact-link:hover,
+  .contact-link:focus-visible {
+    transform: none;
+  }
+
+  /* Section transition: no wipe, no line */
   ::view-transition-old(main) {
     display: none;
   }
