@@ -368,6 +368,7 @@ main {
   position: relative;
   padding-block: 24px;
   view-transition-name: main;
+  min-height: 60vh;   /* keeps every view the same height so the wipe edges line up */
 }
 
 /* Wipe: old content leaves and new content enters, top to bottom */
