@@ -1,22 +1,46 @@
-/* ---------- Design tokens ---------- */
+/* ==========================================================================
+   Portfolio styles
+
+   Contents
+   1. Design tokens
+   2. Base
+   3. Header
+   4. Nav
+   5. Views (page sections)
+   6. Projects
+   7. Footer
+   8. Section transition
+   9. Keyframes
+   10. Reduced motion
+   ========================================================================== */
+
+
+/* ---------- 1. Design tokens ---------- */
 :root {
+  /* Color */
   --bg: #0d0b09;
   --surface: #1a2029;
   --text: #e8ebf0;
   --muted: #9aa5b6;
   --border: #2b3340;
   --accent: #b75dce;
-  --accent-fade:  #b75dce15;
+  --accent-fade: #b75dce10;
   --accent-text: #11151c;
 
+  /* Type */
   --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-title: "Varela Round", sans-serif;
-  --radius: 8px;  
+
+  /* Layout */
+  --radius: 8px;
   --max-width: 60rem;
   --space: 4rem;
+
+  --nav-width: 44rem;
 }
 
-/* ---------- Base ---------- */
+
+/* ---------- 2. Base ---------- */
 body {
   margin: 0;
   font-family: var(--font);
@@ -25,11 +49,12 @@ body {
   color: var(--text);
   background: var(--bg);
   background-image:
-    radial-gradient(ellipse 20% 30% at 5% 0%,  var(--accent-fade) 0%, transparent 100%),
-    radial-gradient(ellipse 40% 50% at 90% 100%,  var(--accent-fade)  0%, transparent 100%);
+    radial-gradient(ellipse 20% 30% at 0% 0%, var(--accent-fade) 0%, transparent 100%),
+    radial-gradient(ellipse 40% 50% at 100% 100%, var(--accent-fade) 0%, transparent 100%);
 }
 
-/* ---------- Header ---------- */
+
+/* ---------- 3. Header ---------- */
 header {
   display: flex;
   flex-direction: column;
@@ -41,24 +66,28 @@ header {
 .aperture {
   width: 70px;
   height: 70px;
-  color: var(--accent);
   margin-bottom: 28px;
   align-self: center;
+  color: var(--accent);
   opacity: 0.85;
-  animation: spinUp 1.5s cubic-bezier(0.15, 0.6, 0.3, 0.978), slowSpin 24s linear 1.5s infinite, fadeIn 0.8s ease both;
+  animation:
+    spinUp 1.5s cubic-bezier(0.15, 0.6, 0.3, 0.978),
+    slowSpin 24s linear 1.5s infinite,
+    fadeIn 0.8s ease both;
 }
 
-/* ---------- Nav ---------- */
+
+/* ---------- 4. Nav ---------- */
 nav {
   position: relative;
   display: flex;
   justify-content: center;
   gap: var(--space);
-  width: min(100%, 44rem);
+  width: min(100%, var(--nav-width));
   font-family: var(--font-title);
 }
 
-/* Line under nav */
+/* Line under the nav; "bottom" lifts it off the bottom edge */
 nav::after {
   content: "";
   position: absolute;
@@ -66,23 +95,23 @@ nav::after {
   right: 0;
   bottom: 0.4rem;
   height: 1px;
-  background: var(--accent)
+  background: var(--accent);
 }
 
 .nav-button {
   position: relative;
-  z-index: 0;
-  padding: 0.6rem 1rem;  
+  z-index: 0;                   /* own stacking context, keeps the box behind the text */
   min-width: 10rem;
+  padding: 0.6rem 1rem;
   color: var(--text);
   text-decoration: none;
-  font-family: var(--font-title);  
-  font-weight: 700;
-  font-style: normal;
+  font-family: var(--font-title);
   font-size: 2rem;
-
+  font-style: normal;
+  font-weight: 700;
 }
 
+/* Hover box: sits on the line and grows upward */
 .nav-button::before {
   content: "";
   position: absolute;
@@ -100,7 +129,7 @@ nav::after {
 /* Dark copy of the label, sitting exactly on top of the real text */
 .nav-button::after {
   content: attr(data-text);
-  content: attr(data-text) / "";
+  content: attr(data-text) / "";   /* hides the copy from screen readers where supported */
   position: absolute;
   top: 0;
   left: 0;
@@ -112,26 +141,163 @@ nav::after {
   transition: clip-path 0.25s ease;
 }
 
-.nav-button:hover::after,
-.nav-button:focus-visible::after {
-  clip-path: inset(0 0 0.4rem 0);   /* same area as the box */
-}
-
 .nav-button:hover::before,
 .nav-button:focus-visible::before {
   transform: scaleY(1);
 }
 
-/* ---------- Footer ---------- */
+.nav-button:hover::after,
+.nav-button:focus-visible::after {
+  clip-path: inset(0 0 0.4rem 0);   /* same area as the box */
+}
+
+
+/* ---------- 5. Views (page sections) ---------- */
+.view {
+  width: min(100% - 2rem, var(--max-width));
+  margin: 0 auto;
+}
+
+.view h2 {
+  margin: 0 0 2rem;
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+
+/* ---------- 6. Projects ---------- */
+.project-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.project:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+.project h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  font-weight: 400;
+}
+
+.project p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.15rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+}
+
+.project .links {
+  display: flex;
+  gap: 1rem;
+  margin: auto 0 0;   /* pushes the links to the bottom of the card */
+}
+
+.project .links a {
+  color: var(--text);
+}
+
+.project .links a:hover {
+  color: var(--accent);
+}
+
+
+/* ---------- 7. Footer ---------- */
 footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 40%;
 }
 
-/* ---------- Keyframes ---------- */
+
+/* ---------- 8. Section transition ---------- */
+
+/* The area that swaps between views; its own layer so only it animates */
+main {
+  position: relative;
+  padding-block: 24px;
+  min-height: 60vh;
+  view-transition-name: main;
+}
+
+/* Wipe: old content leaves and new content enters, top to bottom */
+::view-transition-old(main),
+::view-transition-new(main) {
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;          /* waits for the line to draw first */
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(main) {
+  animation-name: wipeOut;
+}
+
+::view-transition-new(main) {
+  animation-name: wipeIn;
+}
+
+/* Line: an invisible element that only exists so the browser makes a layer for it */
+.wipe-line {
+  position: absolute;
+  top: calc(-0.4rem - 1px);  
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+  view-transition-name: wipe-line;
+}
+
+::view-transition-old(wipe-line) {
+  display: none;
+}
+
+/* The purple band, drawn only while the transition runs.
+   Total 1s: 30% draws (0.3s), 50% travels (0.5s), 20% shrinks (0.2s).
+   The wipe above uses delay 0.3s and duration 0.5s to match the travel stage. */
+::view-transition-new(wipe-line) {
+  background: var(--accent);
+  mix-blend-mode: normal;
+  animation: lineDraw 1s ease both;
+}
+
+
+/* ---------- 9. Keyframes ---------- */
+
+/* Logo */
 @keyframes spinUp {
   to { transform: rotate(720deg); }
 }
@@ -144,4 +310,50 @@ footer {
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* Section wipe */
+@keyframes wipeOut {
+  from { clip-path: inset(0 0 0 0); }
+  to   { clip-path: inset(100% 0 0 0); }
+}
+
+@keyframes wipeIn {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* Transition line (1px band): draws out, travels down, shrinks at the bottom */
+@keyframes lineDraw {
+  0% {
+    clip-path: inset(0 max(0px, calc((100% - var(--nav-width)) / 2)) calc(100% - 1px) max(0px, calc((100% - var(--nav-width)) / 2)));
+    animation-timing-function: ease-out;
+  }  
+  30% {
+    clip-path: inset(0 0 calc(100% - 1px) 0);
+    animation-timing-function: ease;
+  }
+  80% {
+    clip-path: inset(calc(100% - 1px) 0 0 0);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    clip-path: inset(calc(100% - 1px) 50% 0 50%);
+  }
+}
+
+
+/* ---------- 10. Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(main) {
+    display: none;
+  }
+
+  ::view-transition-new(main) {
+    animation: none;
+  }
+
+  ::view-transition-new(wipe-line) {
+    display: none;
+  }
 }

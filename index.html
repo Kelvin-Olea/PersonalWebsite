@@ -37,29 +37,84 @@
 
   <main id="main">
 
-    <!-- Intro -->
-    <section id="top" class="hero">
-
-    </section>
     <!-- Projects -->
-    <section id="projects">
+    <section id="projects" class="view">
+      <h2>Projects</h2>
 
+      <div class="project-grid">
+
+        <article class="project">
+          <h3>Instagram Tools</h3>
+
+          <p>
+            A Node.js tool that collects data from a user's own 
+            Instagram account and visualizes their connections as an interactive network graph in the browser.      
+          </p>      
+
+          <ul class="tags">
+            <li>Node.js</li>
+            <li>Express</li>
+          </ul>
+          <p class="links">
+            <a href="https://github.com/Kelvin-Olea/InstagramTools.git" target="_blank" rel="noopener noreferrer">Source code</a>
+          </p>
+        </article>
+
+        <article class="project">
+          <h3>Template Project</h3>
+          <p>Project Description.</p>
+          <ul class="tags">
+            <li>JavaScript</li>
+            <li>CSS</li>
+          </ul>
+          <p class="links">
+            <a href="https://github.com/yourname/project">Source code</a>
+          </p>
+        </article>
+      </div>
     </section>
 
-    <!-- About -->
-    <section id="about">
-
+    <section id="extra" class="view">
+      <h2>Extra</h2>
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
-
-    </section>
+    <span class="wipe-line" aria-hidden="true"></span>
 
   </main>
 
   <footer class="site-footer">
     <p><span id="year">2026</span> Kelvin Olea</p>
   </footer>
+
+  <script>
+    const views = document.querySelectorAll(".view");
+
+    function showView(id) {
+      views.forEach((view) => {
+        view.hidden = view.id !== id;
+      });
+    }
+
+    function currentId() {
+      const id = location.hash.slice(1);
+      return document.getElementById(id)?.classList.contains("view") ? id : views[0].id;
+    }
+
+    function update() {
+      const id = currentId();
+
+      // Fallback for browsers without view transitions: switch instantly
+      if (!document.startViewTransition) {
+        showView(id);
+        return;
+      }
+
+      document.startViewTransition(() => showView(id));
+    }
+
+    showView(currentId());                        // set the starting view, no animation
+    window.addEventListener("hashchange", update); // runs when a nav link is clicked
+  </script>
 </body>
 </html>
+
