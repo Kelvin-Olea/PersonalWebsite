@@ -25,7 +25,7 @@
   --muted: #9aa5b6;
   --border: #2b3340;
   --accent: #b75dce;
-  --accent-fade: #b75dce10;
+  --accent-fade: #b75dce17;
   --accent-text: #11151c;
 
   /* Type */
@@ -372,6 +372,43 @@ main {
   animation: lineDraw 1s ease both;
 }
 
+.contact-links {
+  display: flex;
+  gap: 4rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.contact-link {
+  --hover-color: #888;
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  color: #666; /* resting color */
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.contact-link svg {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  color: var(--hover-color);
+  transform: scale(1.12);
+}
+
+/* per-icon hover colors */
+.contact-link.github   { --hover-color: #8957e5; }
+.contact-link.linkedin { --hover-color: #0a66c2; }
+.contact-link.email    { --hover-color: #ea4335; }
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-link { transition: color 0.25s ease; }
+  .contact-link:hover,
+  .contact-link:focus-visible { transform: none; }
+}
 
 /* ---------- 10. Keyframes ---------- */
 
