@@ -7,13 +7,14 @@
    3.  Header
    4.  Nav
    5.  Views (page sections)
-   6.  Projects
-   7.  About
-   8.  Contact
-   9.  Footer
-   10. Section transition
-   11. Keyframes
-   12. Reduced motion
+   6.  Home
+   7.  Projects
+   8.  About
+   9.  Contact
+   10. Footer
+   11. Section transition
+   12. Keyframes
+   13. Reduced motion
    ========================================================================== */
 
 
@@ -65,18 +66,27 @@ header {
   margin-top: 24px;
 }
 
+/* Logo: a link to #home */
 .aperture {
+  display: block;               /* lets width, height and transforms apply to the link */
   width: 70px;
   height: 70px;
   margin-bottom: 28px;
   align-self: center;
   color: var(--accent);
+  border-radius: 50%;
   opacity: 0.85;
   animation:
     spinUp 1.5s cubic-bezier(0.15, 0.6, 0.3, 0.978),
     slowSpin 24s linear 1.5s infinite,
     fadeIn 0.8s ease both;
 }
+
+.aperture:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 
 /* ---------- 4. Nav ---------- */
 nav {
@@ -130,10 +140,7 @@ nav::after {
   content: attr(data-text);
   content: attr(data-text) / "";   /* hides the copy from screen readers where supported */
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   padding: inherit;
   color: var(--accent-text);
   clip-path: inset(calc(100% - 0.4rem) 0 0.4rem 0);   /* hidden: flat strip on the line */
@@ -187,7 +194,106 @@ nav::after {
 }
 
 
-/* ---------- 6. Projects ---------- */
+/* ---------- 6. Home ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-title);
+  color: var(--accent);
+}
+
+.hero h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.tagline {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.hero-blurb {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Buttons */
+.button {
+  padding: 0.6rem 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.button.primary:hover,
+.button.primary:focus-visible {
+  background: transparent;
+  color: var(--text);
+}
+
+/* Profile picture */
+.pfp {
+  display: flex;
+  justify-content: center;
+}
+
+.pfp img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 32px var(--accent-fade);
+}
+
+@media (max-width: 700px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .pfp {
+    order: -1;                  /* photo above the text on phones */
+  }
+}
+
+
+/* ---------- 7. Projects ---------- */
 .project-grid {
   display: grid;
   gap: 1.5rem;
@@ -252,7 +358,7 @@ nav::after {
 }
 
 
-/* ---------- 7. About ---------- */
+/* ---------- 8. About ---------- */
 #about .text-box {
   color: var(--muted);
 }
@@ -263,10 +369,6 @@ nav::after {
   grid-template-columns: 0.8fr 1.2fr;
   gap: 2rem;
   align-items: center;          /* columns share a vertical center */
-}
-
-.skillset {
-  max-width: none;              /* fills its column */
 }
 
 .skillset h3 {
@@ -310,7 +412,7 @@ nav::after {
 }
 
 
-/* ---------- 8. Contact ---------- */
+/* ---------- 9. Contact ---------- */
 
 /* Row of icon links, centered */
 .contact-links {
@@ -347,7 +449,7 @@ nav::after {
 .contact-link.email    { --hover-color: #ea4335; }
 
 
-/* ---------- 9. Footer ---------- */
+/* ---------- 10. Footer ---------- */
 footer {
   position: absolute;
   display: flex;
@@ -360,14 +462,14 @@ footer {
 }
 
 
-/* ---------- 10. Section transition ---------- */
+/* ---------- 11. Section transition ---------- */
 
 /* The area that swaps between views; its own layer so only it animates */
 main {
   position: relative;
   padding-block: 24px;
   view-transition-name: main;
-  min-height: 60vh;   /* keeps every view the same height so the wipe edges line up */
+  min-height: 60vh;             /* keeps every view the same height so the wipe edges line up */
 }
 
 /* Wipe: old content leaves and new content enters, top to bottom */
@@ -414,7 +516,7 @@ main {
 }
 
 
-/* ---------- 11. Keyframes ---------- */
+/* ---------- 12. Keyframes ---------- */
 
 /* Logo */
 @keyframes spinUp {
@@ -462,14 +564,23 @@ main {
 }
 
 
-/* ---------- 12. Reduced motion ---------- */
+/* ---------- 13. Reduced motion ---------- */
+/* Keep this last so it overrides everything above */
 @media (prefers-reduced-motion: reduce) {
   /* Logo: keep the fade-in, drop the spinning */
   .aperture {
     animation: fadeIn 0.8s ease both;
   }
 
-  /* Contact icons: keep the color change, drop the grow */
+  /* Project cards and contact icons: keep color changes, drop the movement */
+  .project {
+    transition: border-color 0.25s ease;
+  }
+
+  .project:hover {
+    transform: none;
+  }
+
   .contact-link {
     transition: color 0.25s ease;
   }
@@ -490,114 +601,5 @@ main {
 
   ::view-transition-new(wipe-line) {
     display: none;
-  }
-}
-
-.pfp img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  border: 2px solid var(--accent);
-  border-radius: var(--radius);
-}
-
-.pfp {
-  display: flex;
-  justify-content: center;
-}
-
-/* ---------- Home ---------- */
-.hero {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2rem;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.eyebrow {
-  margin: 0;
-  font-family: var(--font-title);
-  color: var(--accent);
-}
-
-.hero h1 {
-  margin: 0.25rem 0 0.5rem;
-  font-family: var(--font-title);
-  font-size: clamp(2.5rem, 6vw, 3.75rem);
-  font-weight: 400;
-  line-height: 1.1;
-}
-
-.tagline {
-  margin: 0 0 1rem;
-  font-size: 1.25rem;
-}
-
-.hero-blurb {
-  margin: 0 0 1.5rem;
-  color: var(--muted);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.button {
-  padding: 0.6rem 1.25rem;
-  color: var(--text);
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-.button:hover,
-.button:focus-visible {
-  background: var(--accent);
-  color: var(--accent-text);
-}
-
-.button.primary {
-  background: var(--accent);
-  color: var(--accent-text);
-}
-
-.button.primary:hover,
-.button.primary:focus-visible {
-  background: transparent;
-  color: var(--text);
-}
-
-.pfp {
-  display: flex;
-  justify-content: center;
-}
-
-.pfp img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 32px var(--accent-fade);
-}
-
-@media (max-width: 700px) {
-  .hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero-actions {
-    justify-content: center;
-  }
-
-  .pfp {
-    order: -1;   /* photo above the text on phones */
   }
 }
