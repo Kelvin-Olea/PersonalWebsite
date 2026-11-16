@@ -78,7 +78,6 @@ header {
     fadeIn 0.8s ease both;
 }
 
-
 /* ---------- 4. Nav ---------- */
 nav {
   position: relative;
@@ -491,5 +490,114 @@ main {
 
   ::view-transition-new(wipe-line) {
     display: none;
+  }
+}
+
+.pfp img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+.pfp {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---------- Home ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-title);
+  color: var(--accent);
+}
+
+.hero h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.tagline {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.hero-blurb {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.button {
+  padding: 0.6rem 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.button.primary:hover,
+.button.primary:focus-visible {
+  background: transparent;
+  color: var(--text);
+}
+
+.pfp {
+  display: flex;
+  justify-content: center;
+}
+
+.pfp img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 32px var(--accent-fade);
+}
+
+@media (max-width: 700px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .pfp {
+    order: -1;   /* photo above the text on phones */
   }
 }

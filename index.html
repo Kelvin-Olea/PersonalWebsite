@@ -16,15 +16,15 @@
 
 <body>
   <header class="site-header">
-    <div class="aperture" aria-hidden="true">
-        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor">
-          <circle cx="40" cy="40" r="30" stroke-width="4" opacity="1"/>
-          <line x1="40" y1="0" x2="40" y2="80" stroke-width="4" opacity="1"/>
-          <line x1="40" y1="40" x2="68.284" y2="68.284" stroke-width="4" opacity="1"/>
-          <line x1="40" y1="40" x2="68.284" y2="11.716" stroke-width="4" opacity="1"/>
-          <circle cx="40" cy="40" r="39" stroke-width="1" opacity="1"/>
-        </svg>
-      </div>
+    <a class="aperture" href="#home" aria-label="Home">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" aria-hidden="true">
+        <circle cx="40" cy="40" r="30" stroke-width="4"/>
+        <line x1="40" y1="0" x2="40" y2="80" stroke-width="4"/>
+        <line x1="40" y1="40" x2="68.284" y2="68.284" stroke-width="4"/>
+        <line x1="40" y1="40" x2="68.284" y2="11.716" stroke-width="4"/>
+        <circle cx="40" cy="40" r="39" stroke-width="1"/>
+      </svg>
+    </a>
 
     <nav aria-label="Main">
       <a class="nav-button" href="#projects" data-text="Projects">Projects</a>
@@ -37,6 +37,30 @@
 
   <main id="main">
 
+    <!-- Home -->
+    <section id="home" class="view">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">Hi, I'm</p>
+          <h1>Kelvin Olea</h1>
+          <p class="tagline">Computer Engineering student building web tools and tinkering with electronics.</p>
+          <p class="hero-blurb">
+            I'm a freshman at Wentworth Institute of Technology in Boston, and I love making something
+            beautiful out of nothing.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View my projects</a>
+            <a class="button" href="#contact">Get in touch</a>
+          </div>
+        </div>
+
+        <div class="pfp">
+          <img src="images/IMG_2764.jpeg" alt="Photo of Kelvin Olea" width="250" height="250">
+        </div>
+      </div>
+    </section>
+    
     <!-- Projects -->
     <section id="projects" class="view">
       <h2>Projects</h2>
