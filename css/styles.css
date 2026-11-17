@@ -46,10 +46,13 @@
 body {
   margin: 0;
   font-family: var(--font);
+  display: flex;
+  flex-direction: column;
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--text);
-  min-height: 97dvh;           /* spans the full height of the device screen */
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   background-image:
     radial-gradient(ellipse 20% 30% at 0% 0%, var(--accent-fade) 0%, transparent 100%),
@@ -451,17 +454,14 @@ nav::after {
 
 /* ---------- 10. Footer ---------- */
 footer {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  padding: 1.5rem 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
-
-
 /* ---------- 11. Section transition ---------- */
 
 /* The area that swaps between views; its own layer so only it animates */
@@ -469,6 +469,7 @@ main {
   position: relative;
   padding-block: 24px;
   view-transition-name: main;
+  flex: 1;
   min-height: 60vh;             /* keeps every view the same height so the wipe edges line up */
 }
 
